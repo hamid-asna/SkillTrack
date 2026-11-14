@@ -60,7 +60,8 @@ show_course_info()
 courses = [
     "Python for Data Engineering",
     "Machine Learning",
-    "Advanced SQL"
+    "Advanced SQL",
+    "Database"
 ]
 
 
@@ -105,6 +106,36 @@ def remove_course(course_list, course_name):
     course_list.remove(course_name)
     print(f"'{course_name}' removed successfully.")
 
+# Show the last two courses
+
+
+def show_recent_courses(course_list):
+    recent_courses = course_list[-2:]
+
+    print("\n===== RECENT COURSES =====")
+
+    for course in recent_courses:
+        print(course)
+
+
+# Sort courses alphabetically
+def sort_courses(course_list):
+    course_list.sort()
+
+    print("\nCourses sorted successfully!")
+    show_courses(course_list)
+
+
+# Show courses with long names
+def show_long_courses(course_list):
+    long_courses = [
+        course for course in course_list
+        if len(course) > 6
+    ]
+
+    print("\n===== LONG COURSE NAMES =====")
+    show_courses(long_courses)
+
 
 # Main application
 def main():
@@ -114,6 +145,9 @@ def main():
         print("2. Add a course")
         print("3. Remove a course")
         print("4. Exit")
+        print("5. Sort courses")
+        print("6. Show recent courses")
+        print("7. Show long course names")
 
         choice = input("Choose an option: ").strip()
 
@@ -132,9 +166,41 @@ def main():
             print("Thank you for using SkillTrack!")
             break
 
+        elif choice == "5":
+            sort_courses(courses)
+
+        elif choice == "6":
+            show_recent_courses(courses)
+
+        elif choice == "7":
+            show_long_courses(courses)
+
         else:
             print("Invalid option. Please try again.")
 
 
 if __name__ == "__main__":
     main()
+
+# List comprehension
+# temp = [
+#     # expression for item in iterable if condition
+#     "🐍" for course in courses
+#     if len(course) > 6
+# ]
+# print(temp)
+# map ==> on every element will be applied
+mapped = list(map(
+    str.upper,
+    courses
+))
+print(mapped)
+
+# filter ==> on specific(filtered) elements in the iterable will be applied
+# lambda arguments: expression
+long_course = list(
+    filter(
+        lambda course: len(course) > 6, courses
+    )
+)
+print(long_course)
