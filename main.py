@@ -64,6 +64,13 @@ courses = [
     "Database"
 ]
 
+# Available course statuses
+COURSE_STATUSES = (
+    "Not Started",
+    "In Progress",
+    "Completed"
+)
+
 
 # Display all courses
 def show_courses(course_list):
@@ -137,7 +144,32 @@ def show_long_courses(course_list):
     show_courses(long_courses)
 
 
+def filter_courses_by_length(course_list, minimum_length):
+
+    filtered_courses = list(
+        filter(
+            lambda course: len(course) >= minimum_length,
+            course_list
+        )
+    )
+
+    if not filtered_courses:
+        print("No matching courses found.")
+        return
+
+    print("\n===== FILTERED COURSES =====")
+    show_courses(filtered_courses)
+
+
+def show_course_statuses():
+    print("\n===== AVAILABLE STATUSES =====")
+
+    for index, status in enumerate(COURSE_STATUSES, start=1):
+        print(f"{index}. {status}")
+
 # Main application
+
+
 def main():
     while True:
         print("\n===== SKILLTRACK =====")
@@ -148,6 +180,8 @@ def main():
         print("5. Sort courses")
         print("6. Show recent courses")
         print("7. Show long course names")
+        print("8. Filter courses by name length")
+        print("9. show available course statuses")
 
         choice = input("Choose an option: ").strip()
 
@@ -175,6 +209,11 @@ def main():
         elif choice == "7":
             show_long_courses(courses)
 
+        elif choice == "8":
+            minimum_length = int(input("Minimum name length: "))
+            filter_courses_by_length(courses, minimum_length)
+        elif choice == "9":
+            show_course_statuses()
         else:
             print("Invalid option. Please try again.")
 
@@ -204,3 +243,9 @@ long_course = list(
     )
 )
 print(long_course)
+
+# we must use comma , for indicating Python that we want to use tuples
+course = ("Python",)
+course = "Python",  # also this is valid
+# course_list = list(course_tuple) convert to list or tuple ==> tuple()
+print(type(course))
